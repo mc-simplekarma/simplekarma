@@ -266,11 +266,10 @@ exports.getLastfm = function(req, res, next) {
 /**
  * GET /api/twitter
  * Twiter API example.
- */
 
+**/
 exports.getTwitter = function(req, res, next) {
 var token = _.findWhere(req.user.tokens, { kind: 'twitter' });
-console.log(req);
   var T = new Twit({
     consumer_key: secrets.twitter.consumerKey,
     consumer_secret: secrets.twitter.consumerSecret,
@@ -278,39 +277,33 @@ console.log(req);
     access_token_secret: token.tokenSecret
 });
 
-/**
-T.get('account/verify_credentials.json',
-  function(err, reply) {
+  User.findById(req.user.id, function(err, user) {
     if (err) return next(err);
-      console.log(reply);
-});
+    T.get('account/verify_credentials',
+      function(err, reply) {
+        if (err) return next(err);
+
+/**
+    user.profile.name = req.body.name || '';
+    user.profile.email = req.body.email || '';
+    user.profile.gender = req.body.gender || '';
+    user.profile.location = req.body.location || '';
+    user.profile.website = req.body.website || '';
 **/
 
-T.get('search/tweets',
-  { q: 'hackathon since:2013-01-01', geocode: '40.71448,-74.00598,5mi', count: 50 },
-  function(err, reply) {
-    if (err) return next(err);
-    res.render('api/twitter', {
-      title: 'Twitter API',
-      tweets: reply.statuses
+    user.profile.screen_name = reply.screen_name || '';
+
+    user.save(function(err, user) {
+      if (err) return next(err);
+      console.log(user);
+    });
+  });
+    res.render('/dashboard', {
+      title: 'Donor Dashboard',
     });
 });
+}
 
-//
-//  search twitter for all tweets containing the word 'banana' since Nov. 11, 2011
-//
-/**
-T.get('search/tweets', { q: 'banana since:2011-11-11', count: 100 },
-  function(err, reply) {
-    if (err) return next(err);
-    res.render('api/twitter', {
-      title: 'Twitter API',
-      tweets: reply.statuses
-    });
-});
-**/
-
-};
 
 /**
  * GET /api/paypal
@@ -387,9 +380,9 @@ exports.getPayPalCancel = function(req, res, next) {
 };
 
 /**
-* GET /api/simplify
- * simplify page.
- */
+* * GET /api/simplify
+*  * simplify page.
+*   */
 
 exports.getSimplify = function(req, res) {
   if (req.user) return res.redirect('/');
@@ -398,18 +391,3 @@ exports.getSimplify = function(req, res) {
   });
 };
 
-
-exports.getSimplifySuccess = function(req, res) {
-  if (req.user) return res.redirect('/');
-  res.render('api/simplifySuccess', {
-    title: 'Simplify Success'
-  });
-};
-
-
-exports.getSimplifyCancel = function(req, res) {
-  if (req.user) return res.redirect('/');
-  res.render('api/simplifyCancel ', {
-    title: 'Simplify Cancel'
-  });
-};
