@@ -27,6 +27,7 @@
     "paypal-rest-sdk": "~0.6.4",
     "request": "~2.33.0",
     "sendgrid": "~0.4.6",
+    "simplify-commerce": "^1.2.0",
     "tumblr.js": "~0.0.4",
     "twit": "~1.1.12",
     "underscore": "~1.5.2"

@@ -269,20 +269,47 @@ exports.getLastfm = function(req, res, next) {
  */
 
 exports.getTwitter = function(req, res, next) {
-  var token = _.findWhere(req.user.tokens, { kind: 'twitter' });
+var token = _.findWhere(req.user.tokens, { kind: 'twitter' });
+console.log(req);
   var T = new Twit({
     consumer_key: secrets.twitter.consumerKey,
     consumer_secret: secrets.twitter.consumerSecret,
     access_token: token.accessToken,
     access_token_secret: token.tokenSecret
-  });
-  T.get('search/tweets', { q: 'hackathon since:2013-01-01', geocode: '40.71448,-74.00598,5mi', count: 50 }, function(err, reply) {
+});
+
+/**
+T.get('account/verify_credentials.json',
+  function(err, reply) {
+    if (err) return next(err);
+      console.log(reply);
+});
+**/
+
+T.get('search/tweets',
+  { q: 'hackathon since:2013-01-01', geocode: '40.71448,-74.00598,5mi', count: 50 },
+  function(err, reply) {
     if (err) return next(err);
     res.render('api/twitter', {
       title: 'Twitter API',
       tweets: reply.statuses
     });
-  });
+});
+
+//
+//  search twitter for all tweets containing the word 'banana' since Nov. 11, 2011
+//
+/**
+T.get('search/tweets', { q: 'banana since:2011-11-11', count: 100 },
+  function(err, reply) {
+    if (err) return next(err);
+    res.render('api/twitter', {
+      title: 'Twitter API',
+      tweets: reply.statuses
+    });
+});
+**/
+
 };
 
 /**
@@ -356,5 +383,33 @@ exports.getPayPalCancel = function(req, res, next) {
   res.render('api/paypal', {
     result: true,
     canceled: true
+  });
+};
+
+/**
+* GET /api/simplify
+ * simplify page.
+ */
+
+exports.getSimplify = function(req, res) {
+  if (req.user) return res.redirect('/');
+  res.render('api/simplify', {
+    title: 'simplify'
+  });
+};
+
+
+exports.getSimplifySuccess = function(req, res) {
+  if (req.user) return res.redirect('/');
+  res.render('api/simplifySuccess', {
+    title: 'Simplify Success'
+  });
+};
+
+
+exports.getSimplifyCancel = function(req, res) {
+  if (req.user) return res.redirect('/');
+  res.render('api/simplifyCancel ', {
+    title: 'Simplify Cancel'
   });
 };
