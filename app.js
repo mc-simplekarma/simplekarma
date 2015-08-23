@@ -100,6 +100,8 @@ app.get('/dashboard', dashboardController.getDashboard);
 app.get('/dashboard/causes', dashboardController.getCauses);
 app.get('/dashboard/scoreboard', dashboardController.getKarmaboard);
 
+// simplify commerce
+app.get('/api/simplify', apiController.getSimplify);
 
 app.get('/api', apiController.getApi);
 app.get('/api/foursquare', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.getFoursquare);
@@ -109,7 +111,9 @@ app.get('/api/scraping', apiController.getScraping);
 app.get('/api/github', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.getGithub);
 app.get('/api/lastfm', apiController.getLastfm);
 app.get('/api/nyt', apiController.getNewYorkTimes);
+
 app.get('/api/twitter', passportConf.isAuthenticated, apiController.getTwitter);
+
 app.get('/api/aviary', apiController.getAviary);
 app.get('/api/paypal', apiController.getPayPal);
 app.get('/api/paypal/success', apiController.getPayPalSuccess);
@@ -117,8 +121,6 @@ app.get('/api/paypal/cancel', apiController.getPayPalCancel);
 
 // simplify commerce
 app.get('/api/simplify', apiController.getSimplify);
-app.get('/api/simplify/success', apiController.getSimplifySuccess);
-app.get('/api/simplify/cancel', apiController.getSimplifyCancel);
 
 app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
 app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/login' }));

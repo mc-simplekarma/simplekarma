@@ -9,4 +9,5 @@ for pid in $PID; do kill $pid;done
 #cp content/data/*openssl src/
 npm install
 #  NODE_ENV=development forever start $PWD/app.js
-nodemon $PWD/app.js 2>&1 > ./log/www.simplekarma.net.log &
+# nodemon $PWD/app.js 2>&1 > ./log/www.simplekarma.net.log &
+nodemon $PWD/app.js
