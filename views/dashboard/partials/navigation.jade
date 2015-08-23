@@ -1,0 +1,34 @@
+.navbar.navbar-default.navbar-fixed-top(data-ng-controller='NavigationCtrl')
+  .container
+    .navbar-header
+      button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href='/') SimpleKarma
+    .collapse.navbar-collapse
+      ul.nav.navbar-nav
+        li(class=title=='Dashboard'?'active':undefined, data-ng-class="{active: $location.path()=='/dashboard'}")
+          a(href='/dashboard') Dashboard
+        li(class=title=='Causes'?'active':undefined, data-ng-class="{active: $location.path()=='/causes'}")
+          a(href='/dashboard/causes') Causes
+        li(class=title=='Karmaboard'?'active':undefined)
+          a(href='/dashboard/scoreboard',target='_self') Karmaboard
+      ul.nav.navbar-nav.navbar-right
+        if !user
+          li(class=title=='Login'?'active':undefined)
+            a(href='/login',target='_self') Login
+          li(class=title=='Create Account'?'active':undefined)
+            a(href='/signup',target='_self') Create Account
+        else
+          li.dropdown(class=title=='Account Management'?'active':undefined)
+            a.dropdown-toggle(href='#', data-toggle='dropdown')
+              if user.profile.picture
+                img.profile-image(src='#{user.profile.picture}')
+              | #{user.profile.name || user.email || user.id}&nbsp;
+              i.caret
+            ul.dropdown-menu
+              li: a(href='/account') My Account
+              li.divider
+              li: a(href='/logout',target='_self') Logout
