@@ -295,7 +295,6 @@ var token = _.findWhere(req.user.tokens, { kind: 'twitter' });
 
     user.save(function(err, user) {
       if (err) return next(err);
-      console.log(user);
     });
   });
     res.render('/dashboard', {

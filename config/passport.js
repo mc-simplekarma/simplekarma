@@ -93,6 +93,17 @@ passport.use(new GitHubStrategy(secrets.github, function(req, accessToken, refre
   }
 }));
 
+/**
+ * Twitter passport loging
+ * @param  {[type]} req           [description]
+ * @param  {[type]} accessToken   [description]
+ * @param  {[type]} tokenSecret   [description]
+ * @param  {[type]} profile       [description]
+ * @param  {[type]} done)         {               if (req.user) {      User.findById(req.user.id, function(err, user)      {                  user.twitter [description]
+ * @param  {User}   function(err, existingUser) {                    if (existingUser)             return        done(null, existingUser);      var          user          [description]
+ * @return {[type]}               [description]
+ */
+
 passport.use(new TwitterStrategy(secrets.twitter, function(req, accessToken, tokenSecret, profile, done) {
   if (req.user) {
     User.findById(req.user.id, function(err, user) {
@@ -121,6 +132,7 @@ passport.use(new TwitterStrategy(secrets.twitter, function(req, accessToken, tok
     });
   }
 }));
+
 
 passport.use(new GoogleStrategy(secrets.google, function(req, accessToken, refreshToken, profile, done) {
   if (req.user) {

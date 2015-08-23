@@ -9,11 +9,26 @@ var User = require('../models/User');
  */
 
 exports.getLogin = function(req, res) {
-  if (req.user) return res.redirect('/');
+  if (!req.user) return res.redirect('/');
   res.render('account/login', {
     title: 'Login'
   });
 };
+
+exports.twitterDonor = function(req, res) {
+  if (!req.user) return res.redirect('/');
+  res.render('dashboard/dashboard', {
+    title: 'Donor Login'
+  });
+};
+
+exports.twitterCause = function(req, res) {
+  if (!req.user) return res.redirect('/');
+  res.render('dashboard/causes', {
+    title: 'Cause Login'
+  });
+};
+
 
 /**
  * POST /login

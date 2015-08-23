@@ -4,7 +4,7 @@
  */
 
 exports.getDashboard = function(req, res) {
-  if (req.user) return res.redirect('/');
+  if (!req.user) return res.redirect('/');
   res.render('dashboard/dashboard', {
     title: 'Dashboard'
   });
@@ -12,7 +12,7 @@ exports.getDashboard = function(req, res) {
 
 
 exports.getCauses = function(req, res) {
-  if (req.user) return res.redirect('/');
+  if (!req.user) return res.redirect('/');
   res.render('dashboard/causes', {
     title: 'Causes'
   });
@@ -20,7 +20,7 @@ exports.getCauses = function(req, res) {
 
 
 exports.getKarmaboard = function(req, res) {
-  if (req.user) return res.redirect('/');
+  if (!req.user) return res.redirect('/');
   res.render('dashboard/scoreboard', {
     title: 'Karmaboard'
   });

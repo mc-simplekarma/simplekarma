@@ -88,6 +88,11 @@ app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
 app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
+
+app.get('/twitterDonor', userController.twitterDonor);
+app.get('/twitterCause', userController.twitterCause);
+
+
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
 app.get('/account', passportConf.isAuthenticated, userController.getAccount);
@@ -100,11 +105,13 @@ app.get('/dashboard', dashboardController.getDashboard);
 app.get('/dashboard/causes', dashboardController.getCauses);
 app.get('/dashboard/scoreboard', dashboardController.getKarmaboard);
 
+
 // simplify commerce
 app.get('/api/simplify', apiController.getSimplify);
 
 app.get('/api', apiController.getApi);
 app.get('/api/dashboard', apiController.getApi);
+
 app.get('/api/foursquare', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.getFoursquare);
 app.get('/api/tumblr', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.getTumblr);
 app.get('/api/facebook', passportConf.isAuthenticated, apiController.getFacebook);
@@ -129,8 +136,14 @@ app.get('/auth/github', passport.authenticate('github'));
 app.get('/auth/github/callback', passport.authenticate('github', { successRedirect: '/', failureRedirect: '/login' }));
 app.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
 app.get('/auth/google/callback', passport.authenticate('google', { successRedirect: '/', failureRedirect: '/login' }));
+
 app.get('/auth/twitter', passport.authenticate('twitter'));
 app.get('/auth/twitter/callback', passport.authenticate('twitter', { successRedirect: '/dashboard', failureRedirect: '/login' }));
+
+
+app.get('/auth/twitter', passport.authenticate('twitter'));
+app.get('/auth/twitter/callback', passport.authenticate('twitter', { successRedirect: '/dashboard', failureRedirect: '/login' }));
+
 app.get('/auth/foursquare', passport.authorize('foursquare'));
 app.get('/auth/foursquare/callback', passport.authorize('foursquare', { failureRedirect: '/api' }), function(req, res) { res.redirect('/api/foursquare'); });
 app.get('/auth/tumblr', passport.authorize('tumblr'));
