@@ -102,6 +102,7 @@ app.get('/dashboard/scoreboard', dashboardController.getKarmaboard);
 
 
 app.get('/api', apiController.getApi);
+app.get('/api/dashboard', apiController.getApi);
 app.get('/api/foursquare', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.getFoursquare);
 app.get('/api/tumblr', passportConf.isAuthenticated, passportConf.isAuthorized, apiController.getTumblr);
 app.get('/api/facebook', passportConf.isAuthenticated, apiController.getFacebook);
