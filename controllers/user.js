@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var _ = require('underscore');
 var User = require('../models/User');
+var models = require('../models/Causes')(mongoose);
+
 
 /**
  * GET /login
@@ -9,25 +11,30 @@ var User = require('../models/User');
  */
 
 exports.getLogin = function(req, res) {
-  if (!req.user) return res.redirect('/');
+//  if (!req.user) return res.redirect('/');
   res.render('account/login', {
     title: 'Login'
   });
 };
 
 exports.twitterDonor = function(req, res) {
-  if (!req.user) return res.redirect('/');
+//  if (!req.user) return res.redirect('/');
   res.render('dashboard/dashboard', {
     title: 'Donor Login'
   });
 };
 
 exports.twitterCause = function(req, res) {
-  if (!req.user) return res.redirect('/');
-  res.render('dashboard/causes', {
+//  if (!req.user) return res.redirect('/');
+//  models.CauseContent.find({userId: req.user.twitter.toString()}, function(err, results) {
+    models.CauseContent.find({}, null, {sort: '-timestamp'}, function(err, results) {
+      res.render('dashboard/causes', {
+    results: results,
     title: 'Cause Login'
   });
-};
+  }
+
+)};
 
 
 /**

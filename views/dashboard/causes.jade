@@ -1,4 +1,20 @@
 extends layout
 
-block content 
+
+block content
+  br
+  br
+  br
   include causes.html
+  br
+  br
+  ul.list-unstyled
+    for result in results
+      li
+        .panel.panel-default
+          .panel-body
+            .clearfix
+              - var image = 'http://placehold.it/50/55C1E7/fff';
+              img.pull-left(src='#{image}', width=50, height=50, style='margin-right: 10px')
+
+              =result.text
