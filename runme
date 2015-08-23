@@ -1,5 +1,12 @@
-[ ! -d ./node_modules ] && npm install
-APP="app.js"
+export PATH="$HOME/.local/n/bin:$PATH"
 
-$(which nodemon) "$APP" || $(which node) "$APP"
+PWD=`pwd`
+PID=`ps -ef | grep node | grep "$PWD" | awk '{print $2, $3}'`
 
+for pid in $PID; do kill $pid;done
+
+#cp content/data/*db tmp/
+#cp content/data/*openssl src/
+npm install
+#  NODE_ENV=development forever start $PWD/app.js
+nodemon $PWD/app.js 2>&1 > ./log/www.simplekarma.net.log &
